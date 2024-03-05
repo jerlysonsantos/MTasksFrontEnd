@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ title }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="description">
+      {{ description }}
+    </div>
+    <mat-checkbox
+      [checked]="isDone"
+      [disabled]="isDone"
+      (click)="markAsDone()"
+      >{{ isDone ? "Feita" : "Finalizar" }}</mat-checkbox
+    >
+    <button mat-fab color="primary" (click)="editLabor()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>

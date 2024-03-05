@@ -1,0 +1,34 @@
+<section class="labor-container">
+  <div class="new-labor-container">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="btn btn-primary"
+      (click)="openNewModal()"
+    >
+      Nova Tarefa
+    </button>
+  </div>
+
+  <section>
+    <div *ngFor="let labor of labors | async">
+      <app-labor-card
+        [id]="labor.id"
+        [title]="labor.title"
+        [description]="labor.description"
+        [isDone]="labor.isDone"
+        (edit)="openEditModal($event)"
+        (markDone)="markAsDone($event)"
+      ></app-labor-card>
+    </div>
+
+    <mat-paginator
+      [length]="totalItens"
+      [pageSize]="size"
+      [pageSizeOptions]="[5, 10]"
+      (page)="getAllLabors($event.pageIndex, $event.pageSize)"
+    >
+    </mat-paginator>
+  </section>
+</section>

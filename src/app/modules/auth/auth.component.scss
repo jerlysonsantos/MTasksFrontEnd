@@ -1,0 +1,48 @@
+@import "src/styles";
+
+.auth-container {
+  @include centerlize-container;
+
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .heading {
+    width: 100%;
+    padding-left: 10%;
+  }
+
+  &.is-register {
+    .app-register {
+      display: block;
+    }
+
+    .app-login {
+      display: none;
+    }
+
+    .heading-login {
+      display: none;
+    }
+
+    .heading-register {
+      display: block;
+    }
+  }
+
+  .app-register {
+    display: none;
+    width: 100%;
+    float: right;
+  }
+
+  .heading-register {
+    display: none;
+    float: left;
+  }
+
+  .app-login {
+    display: block;
+    width: 100%;
+  }
+}

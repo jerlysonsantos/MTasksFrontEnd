@@ -1,0 +1,36 @@
+<div>
+  <section class="auth-container" [ngClass]="{ 'is-register': isRegister }">
+    <app-login class="app-login"></app-login>
+    <app-register class="app-register"></app-register>
+
+    <article class="heading">
+      <div class="heading-login">
+        <h1>Bem-vindo de Volta!</h1>
+        <p>Não tem uma conta? não se preocupe, clique aqui</p>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="btn btn-primary"
+          (click)="handlerAuth('register')"
+        >
+          Se Increver
+        </button>
+      </div>
+
+      <div class="heading-register">
+        <h1>Bem-vindo a nossa plataforma!</h1>
+        <p>Já tem conta? clique aqui</p>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="btn btn-primary"
+          (click)="handlerAuth('login')"
+        >
+          Entrar
+        </button>
+      </div>
+    </article>
+  </section>
+</div>

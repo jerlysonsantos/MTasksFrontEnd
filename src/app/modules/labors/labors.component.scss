@@ -1,0 +1,15 @@
+@import "src/styles";
+
+.labor-container {
+  @include centerlize-container;
+}
+
+mat-paginator {
+  background-color: #fcfcfc;
+}
+
+.new-labor-container {
+  display: flex;
+  justify-content: end;
+  margin: 1.5rem;
+}

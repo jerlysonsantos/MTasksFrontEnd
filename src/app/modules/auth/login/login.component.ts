@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,9 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     @Inject(AuthService)
-    private readonly _authService: AuthService
+    private readonly authSerive: AuthService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -22,15 +26,21 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (!this.loginForm.valid) {
-      // TODO: Implement login logic here
+    if (this.loginForm.invalid) {
+      return;
     }
 
     const username = this.loginForm.value.username;
     const password = this.loginForm.value.password;
 
-    this._authService.login(username, password).subscribe((response) => {
-      console.log(response);
+    this.authSerive.login(username, password).subscribe({
+      next: () => {
+        this.snackBar.open('Logado com sucesso!', 'Fechar', { duration: 500 });
+        this.router.navigate(['tarefas']);
+      },
+      error: () => {
+        this.snackBar.open('Algum erro ocorreu!', 'Fechar', { duration: 500 });
+      },
     });
   }
 }

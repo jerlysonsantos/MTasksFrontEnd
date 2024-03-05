@@ -19,4 +19,23 @@ export class AuthService {
 
     return response;
   }
+
+  register(
+    name: string,
+    username: string,
+    email: string,
+    password: string
+  ): Observable<{ message: string }> {
+    const response = this.http.post<{ message: string }>(
+      '@api-public/auth/register',
+      {
+        name,
+        username,
+        email,
+        password,
+      }
+    );
+
+    return response;
+  }
 }
