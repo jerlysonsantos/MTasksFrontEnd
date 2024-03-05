@@ -6,14 +6,19 @@
     <div class="description">
       {{ description }}
     </div>
-    <mat-checkbox
-      [checked]="isDone"
-      [disabled]="isDone"
-      (click)="markAsDone()"
-      >{{ isDone ? "Feita" : "Finalizar" }}</mat-checkbox
-    >
-    <button mat-fab color="primary" (click)="editLabor()">
-      <mat-icon>edit</mat-icon>
-    </button>
+    <div class="actions">
+      <mat-slide-toggle
+        [checked]="isDone"
+        [disabled]="isDone"
+        (click)="markAsDone()"
+        >{{ isDone ? "Feita" : "Finalizar" }}</mat-slide-toggle
+      >
+      <button mat-fab color="primary" (click)="editLabor()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-fab color="warn" (click)="removeLabor()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </mat-card-content>
 </mat-card>

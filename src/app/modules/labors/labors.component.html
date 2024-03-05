@@ -2,6 +2,14 @@
   <div class="new-labor-container">
     <button
       mat-raised-button
+      color="warn"
+      class="btn btn-primary"
+      (click)="logOut()"
+    >
+      Sair da conta
+    </button>
+    <button
+      mat-raised-button
       color="primary"
       type="submit"
       class="btn btn-primary"
@@ -20,7 +28,24 @@
         [isDone]="labor.isDone"
         (edit)="openEditModal($event)"
         (markDone)="markAsDone($event)"
+        (remove)="remove($event)"
       ></app-labor-card>
+    </div>
+
+    <div *ngIf="this.laborIsEmpty" class="empty-container">
+      <h2>
+        Você não tem tarefas cadastradas, clique aqui para começar inserir!
+      </h2>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="btn btn-primary"
+        (click)="openNewModal()"
+      >
+        Nova Tarefa
+      </button>
     </div>
 
     <mat-paginator

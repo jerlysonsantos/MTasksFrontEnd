@@ -13,6 +13,7 @@ export class LaborCardComponent {
   @Input() isDone: boolean = false;
   @Output() edit: EventEmitter<ILabor> = new EventEmitter<ILabor>();
   @Output() markDone: EventEmitter<ILabor> = new EventEmitter<ILabor>();
+  @Output() remove: EventEmitter<ILabor> = new EventEmitter<ILabor>();
 
   constructor() {}
 
@@ -27,6 +28,15 @@ export class LaborCardComponent {
 
   markAsDone(): void {
     this.markDone.emit({
+      id: this.id,
+      title: this.title || '',
+      description: this.description || '',
+      isDone: true,
+    });
+  }
+
+  removeLabor(): void {
+    this.remove.emit({
       id: this.id,
       title: this.title || '',
       description: this.description || '',

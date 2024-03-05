@@ -11,8 +11,14 @@ mat-card {
       margin: 0 0;
     }
 
-    mat-checkbox {
-      margin: 0 auto;
+    .actions {
+      mat-slide-toggle {
+        margin: 0.5rem;
+      }
+
+      button {
+        margin: 0.5rem;
+      }
     }
   }
 }

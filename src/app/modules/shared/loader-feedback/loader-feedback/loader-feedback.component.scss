@@ -1,0 +1,13 @@
+$loader-size: 50px;
+$loader-speed: 2s;
+$loader-color: #6290d1;
+
+#loading {
+  display: flex;
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  margin: 2rem;
+}

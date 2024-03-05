@@ -1,10 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { LaborService } from './services/labors.service';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LaborDialogComponent } from './labor-dialog/labor-dialog.component';
 import { ILabor } from './interfaces/labor.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoaderFeedbackService } from '../shared/loader-feedback';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-labors',
@@ -21,8 +25,12 @@ export class LaborsComponent implements OnInit {
   constructor(
     @Inject(LaborService)
     private laborService: LaborService,
+    @Inject(AuthService)
+    private authService: AuthService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private loaderFeedbackService: LoaderFeedbackService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -33,9 +41,21 @@ export class LaborsComponent implements OnInit {
     this.currentPage = page;
     this.size = size;
 
-    this.laborService.getAll(page, size).subscribe((response) => {
-      this.totalItens = response.size;
-      this.labors$.next(response.labors);
+    this.loaderFeedbackService.addLoad('gettAllLabors');
+
+    this.laborService.getAll(page, size).subscribe({
+      next: (response) => {
+        this.totalItens = response.size;
+        this.labors$.next(response.labors);
+      },
+      error: () => {
+        this.snackBar.open('Erro ao buscar tarefas', 'Fechar', {
+          duration: 2000,
+        });
+      },
+      complete: () => {
+        this.loaderFeedbackService.removeLoad('gettAllLabors');
+      },
     });
   }
 
@@ -50,6 +70,8 @@ export class LaborsComponent implements OnInit {
         return;
       }
 
+      this.loaderFeedbackService.addLoad('newLabor');
+
       this.laborService.create(result).subscribe({
         next: () => {
           this.getAllLabors(this.currentPage, this.size);
@@ -58,6 +80,9 @@ export class LaborsComponent implements OnInit {
           this.snackBar.open('Erro ao criar novo labor', 'Fechar', {
             duration: 2000,
           });
+        },
+        complete: () => {
+          this.loaderFeedbackService.removeLoad('newLabor');
         },
       });
     });
@@ -75,6 +100,8 @@ export class LaborsComponent implements OnInit {
         return;
       }
 
+      this.loaderFeedbackService.addLoad('editLabor');
+
       this.laborService
         .update({ id: labor.id, isDone: labor.isDone, ...result })
         .subscribe({
@@ -86,11 +113,16 @@ export class LaborsComponent implements OnInit {
               duration: 2000,
             });
           },
+          complete: () => {
+            this.loaderFeedbackService.removeLoad('editLabor');
+          },
         });
     });
   }
 
   markAsDone(labor: ILabor) {
+    this.loaderFeedbackService.addLoad('markAsDone');
+
     this.laborService.update(labor).subscribe({
       next: () => {
         this.getAllLabors(this.currentPage, this.size);
@@ -100,6 +132,47 @@ export class LaborsComponent implements OnInit {
           duration: 2000,
         });
       },
+      complete: () => {
+        this.loaderFeedbackService.removeLoad('markAsDone');
+      },
     });
+  }
+
+  remove(labor: ILabor) {
+    if (!labor.id) {
+      return;
+    }
+
+    this.loaderFeedbackService.addLoad('removeLabor');
+
+    this.laborService.remove(labor.id).subscribe({
+      next: () => {
+        this.getAllLabors(this.currentPage, this.size);
+      },
+      error: () => {
+        this.snackBar.open('Erro ao remover labor', 'Fechar', {
+          duration: 2000,
+        });
+      },
+      complete: () => {
+        this.loaderFeedbackService.removeLoad('removeLabor');
+      },
+    });
+  }
+
+  logOut() {
+    this.loaderFeedbackService.addLoad('logout');
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/autenticacao']);
+      },
+      complete: () => {
+        this.loaderFeedbackService.removeLoad('logout');
+      },
+    });
+  }
+
+  get laborIsEmpty(): boolean {
+    return this.labors$.value.length === 0;
   }
 }

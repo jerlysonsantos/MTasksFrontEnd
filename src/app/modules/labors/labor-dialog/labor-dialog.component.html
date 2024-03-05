@@ -1,6 +1,6 @@
 <section>
   <h1>Tarefa</h1>
-  <form [formGroup]="laborForm" (submit)="onSubmit()">
+  <form [formGroup]="laborForm">
     <div>
       <mat-form-field>
         <mat-label>Título</mat-label>
@@ -34,7 +34,7 @@
       <button
         mat-raised-button
         color="primary"
-        type="submit"
+        (click)="onSubmit()"
         class="btn btn-primary"
       >
         Salvar

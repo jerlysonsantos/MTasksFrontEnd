@@ -15,8 +15,8 @@ export class LaborService {
   getAll(
     page: number = 0,
     size: number = 10
-  ): Observable<{ labors: any[]; size: number }> {
-    const response = this.http.get<{ labors: any[]; size: number }>(
+  ): Observable<{ labors: ILabor[]; size: number }> {
+    const response = this.http.get<{ labors: ILabor[]; size: number }>(
       `@api/labor?page=${page}&size=${size}`
     );
 
@@ -31,6 +31,12 @@ export class LaborService {
 
   update(labor: ILabor): Observable<ILabor> {
     const response = this.http.put<ILabor>(`@api/labor/${labor.id}`, labor);
+
+    return response;
+  }
+
+  remove(id: number): Observable<void> {
+    const response = this.http.delete<void>(`@api/labor/${id}`);
 
     return response;
   }

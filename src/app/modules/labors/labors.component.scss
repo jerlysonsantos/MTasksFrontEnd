@@ -12,4 +12,19 @@ mat-paginator {
   display: flex;
   justify-content: end;
   margin: 1.5rem;
+
+  button {
+    margin: 0.5rem;
+  }
+}
+
+.empty-container {
+  @include centerlize-container;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
 }

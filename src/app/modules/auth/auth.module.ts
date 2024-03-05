@@ -10,15 +10,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
-import { FormErrorsPipe } from 'src/app/pipes/form-error.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AuthComponent,
-    LoginComponent,
-    RegisterComponent,
-    FormErrorsPipe,
-  ],
+  declarations: [AuthComponent, LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
@@ -27,6 +22,7 @@ import { FormErrorsPipe } from 'src/app/pipes/form-error.pipe';
     MatButtonModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    SharedModule,
   ],
 })
 export class AuthModule {}

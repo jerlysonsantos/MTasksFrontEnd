@@ -38,4 +38,13 @@ export class AuthService {
 
     return response;
   }
+
+  logout(): Observable<{ message: string }> {
+    const response = this.http.post<{ message: string }>(
+      '@api-public/auth/logout',
+      {}
+    );
+
+    return response;
+  }
 }
