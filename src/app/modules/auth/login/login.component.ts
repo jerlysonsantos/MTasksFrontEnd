@@ -15,7 +15,7 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     @Inject(AuthService)
-    private readonly authSerive: AuthService,
+    private readonly authService: AuthService,
     private snackBar: MatSnackBar,
     private router: Router
   ) {
@@ -33,13 +33,17 @@ export class LoginComponent {
     const username = this.loginForm.value.username;
     const password = this.loginForm.value.password;
 
-    this.authSerive.login(username, password).subscribe({
+    this.authService.login(username, password).subscribe({
       next: () => {
-        this.snackBar.open('Logado com sucesso!', 'Fechar', { duration: 500 });
+        this.snackBar.open('Logado com sucesso!', 'Fechar', { duration: 2000 });
         this.router.navigate(['tarefas']);
       },
-      error: () => {
-        this.snackBar.open('Algum erro ocorreu!', 'Fechar', { duration: 500 });
+      error: (error) => {
+        this.snackBar.open(
+          error.error.Message || 'Algum erro ocorreu!',
+          'Fechar',
+          { duration: 2000 }
+        );
       },
     });
   }

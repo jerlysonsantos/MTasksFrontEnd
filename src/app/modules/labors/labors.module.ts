@@ -14,9 +14,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { FormErrorsPipe } from 'src/app/pipes/form-error.pipe';
 
 @NgModule({
-  declarations: [LaborsComponent, LaborCardComponent, LaborDialogComponent],
+  declarations: [
+    LaborsComponent,
+    LaborCardComponent,
+    LaborDialogComponent,
+    FormErrorsPipe,
+  ],
   imports: [
     CommonModule,
     LaborRoutingModule,

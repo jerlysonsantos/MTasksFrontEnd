@@ -12,7 +12,7 @@
   </div>
 
   <section>
-    <div *ngFor="let labor of labors | async">
+    <div *ngFor="let labor of labors$ | async">
       <app-labor-card
         [id]="labor.id"
         [title]="labor.title"

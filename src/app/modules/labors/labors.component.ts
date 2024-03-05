@@ -16,7 +16,7 @@ export class LaborsComponent implements OnInit {
   size = 10;
 
   totalItens = 10;
-  labors: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  labors$: BehaviorSubject<ILabor[]> = new BehaviorSubject<ILabor[]>([]);
 
   constructor(
     @Inject(LaborService)
@@ -35,7 +35,7 @@ export class LaborsComponent implements OnInit {
 
     this.laborService.getAll(page, size).subscribe((response) => {
       this.totalItens = response.size;
-      this.labors.next(response.labors);
+      this.labors$.next(response.labors);
     });
   }
 

@@ -45,8 +45,12 @@ export class RegisterComponent {
         });
         this.router.navigate(['autenticacao/entrar']);
       },
-      error: () => {
-        this.snackBar.open('Algum erro ocorreu!', 'Fechar', { duration: 500 });
+      error: (error) => {
+        this.snackBar.open(
+          error.error.Message || 'Algum erro ocorreu!',
+          'Fechar',
+          { duration: 2000 }
+        );
       },
     });
   }

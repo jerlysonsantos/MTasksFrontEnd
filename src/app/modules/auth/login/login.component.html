@@ -3,28 +3,36 @@
   <form [formGroup]="loginForm" (submit)="onSubmit()">
     <div class="form-group">
       <mat-form-field>
-        <mat-label>Username</mat-label>
+        <mat-label>Nome do usuário</mat-label>
         <input
           matInput
           type="text"
           id="username"
           name="username"
           formControlName="username"
-          placeholder="Enter your username"
+          placeholder="Entre com seu usuário"
         />
+
+        <mat-error *ngIf="loginForm.get('username')?.errors">
+          {{ loginForm.get("username")?.errors | formErrors }}
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field>
-        <mat-label>Password</mat-label>
+        <mat-label>Senha</mat-label>
         <input
           matInput
           type="password"
           id="password"
           name="password"
           formControlName="password"
-          placeholder="Enter your password"
+          placeholder="Entre com sua senha"
         />
+
+        <mat-error *ngIf="loginForm.get('password')?.errors">
+          {{ loginForm.get("password")?.errors | formErrors }}
+        </mat-error>
       </mat-form-field>
     </div>
     <button
